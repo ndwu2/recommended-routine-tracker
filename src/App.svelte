@@ -475,6 +475,76 @@
   function reset() {
     done = {};
   }
+
+  // --- Timer widget: stopwatch (counts up) and cooldown (counts down) ---
+  const DEFAULT_COOLDOWN_MS = 90_000; // 1 min 30 sec
+
+  let timerMode = $state('stopwatch'); // 'stopwatch' | 'cooldown'
+  let running = $state(false);
+  let stopwatchMs = $state(0);
+  let cooldownDuration = $state(DEFAULT_COOLDOWN_MS);
+  let cooldownMs = $state(DEFAULT_COOLDOWN_MS);
+
+  let lastTick = 0;
+
+  const display = $derived(
+    formatTime(timerMode === 'stopwatch' ? stopwatchMs : cooldownMs)
+  );
+  const finished = $derived(timerMode === 'cooldown' && cooldownMs === 0);
+
+  function formatTime(ms) {
+    const totalTenths = Math.floor(ms / 100);
+    const tenths = totalTenths % 10;
+    const totalSeconds = Math.floor(totalTenths / 10);
+    const seconds = totalSeconds % 60;
+    const minutes = Math.floor(totalSeconds / 60);
+    return `${minutes}:${String(seconds).padStart(2, '0')}.${tenths}`;
+  }
+
+  function tick() {
+    const now = performance.now();
+    const dt = now - lastTick;
+    lastTick = now;
+    if (timerMode === 'stopwatch') {
+      stopwatchMs += dt;
+    } else {
+      cooldownMs = Math.max(0, cooldownMs - dt);
+      if (cooldownMs === 0) running = false;
+    }
+  }
+
+  // Runs the ticking interval only while `running` is true; cleans up on stop/unmount.
+  $effect(() => {
+    if (!running) return;
+    lastTick = performance.now();
+    const id = setInterval(tick, 100);
+    return () => clearInterval(id);
+  });
+
+  function startPause() {
+    // Restart a finished cooldown from its full duration.
+    if (timerMode === 'cooldown' && cooldownMs === 0) {
+      cooldownMs = cooldownDuration;
+    }
+    running = !running;
+  }
+
+  function resetTimer() {
+    running = false;
+    if (timerMode === 'stopwatch') stopwatchMs = 0;
+    else cooldownMs = cooldownDuration;
+  }
+
+  function setTimerMode(mode) {
+    if (timerMode === mode) return;
+    timerMode = mode;
+    running = false;
+  }
+
+  function adjustCooldown(deltaMs) {
+    cooldownDuration = Math.max(15_000, cooldownDuration + deltaMs);
+    if (!running) cooldownMs = cooldownDuration;
+  }
 </script>
 
 <main>
@@ -484,6 +554,55 @@
       View the full routine ↗
     </a>
   </header>
+
+  <div class="timer">
+    <div class="timer-modes">
+      <button
+        class="mode"
+        class:active={timerMode === 'stopwatch'}
+        aria-pressed={timerMode === 'stopwatch'}
+        onclick={() => setTimerMode('stopwatch')}
+      >
+        Stopwatch
+      </button>
+      <button
+        class="mode"
+        class:active={timerMode === 'cooldown'}
+        aria-pressed={timerMode === 'cooldown'}
+        onclick={() => setTimerMode('cooldown')}
+      >
+        Cooldown
+      </button>
+    </div>
+
+    <div class="timer-face">
+      <div class="time" class:finished>{display}</div>
+      <div class="timer-controls">
+        {#if timerMode === 'cooldown'}
+          <button
+            class="adjust"
+            aria-label="Decrease cooldown by 15 seconds"
+            onclick={() => adjustCooldown(-15_000)}
+          >
+            −15s
+          </button>
+        {/if}
+        <button class="run" onclick={startPause}>
+          {running ? 'Pause' : 'Start'}
+        </button>
+        <button class="run reset-timer" onclick={resetTimer}>Reset</button>
+        {#if timerMode === 'cooldown'}
+          <button
+            class="adjust"
+            aria-label="Increase cooldown by 15 seconds"
+            onclick={() => adjustCooldown(15_000)}
+          >
+            +15s
+          </button>
+        {/if}
+      </div>
+    </div>
+  </div>
 
   {#each sections as section, s}
     <section>
@@ -560,6 +679,97 @@
     max-width: 560px;
     margin: 0 auto;
     padding: 1.25rem 1rem calc(2rem + env(safe-area-inset-bottom));
+  }
+
+  .timer {
+    display: flex;
+    align-items: stretch;
+    gap: 0.6rem;
+    background: #ffffff;
+    color: #111111;
+    border-radius: 12px;
+    padding: 0.6rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .timer-modes {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    flex: 0 0 auto;
+  }
+
+  .timer .mode {
+    width: auto;
+    padding: 0.5rem 0.8rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #111;
+    background: #f0f0f0;
+    border: 2px solid #d4d4d4;
+    border-radius: 8px;
+  }
+
+  .timer .mode.active {
+    color: #fff;
+    background: #111;
+    border-color: #111;
+  }
+
+  .timer-face {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+
+  .timer .time {
+    font-size: 2.2rem;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0.02em;
+    color: #111;
+    line-height: 1;
+  }
+
+  .timer .time.finished {
+    color: #c0392b;
+  }
+
+  .timer-controls {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .timer .run,
+  .timer .adjust {
+    width: auto;
+    padding: 0.45rem 0.9rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #fff;
+    background: #111;
+    border: 2px solid #111;
+    border-radius: 8px;
+  }
+
+  .timer .run.reset-timer {
+    color: #111;
+    background: #fff;
+    border-color: #cfcfcf;
+  }
+
+  .timer .adjust {
+    padding: 0.45rem 0.6rem;
+    font-size: 0.8rem;
+    color: #111;
+    background: #f0f0f0;
+    border-color: #d4d4d4;
   }
 
   header {

@@ -1,6 +1,6 @@
 :root {
   color-scheme: dark;
-  font-family: system-ui, -apple-system, sans-serif;
+  font-family: 'Poppins', system-ui, -apple-system, sans-serif;
 
   /* Brand palette — edit these to re-skin the whole app */
   --bg: #191919;
@@ -23,6 +23,14 @@
 
 * {
   box-sizing: border-box;
+}
+
+/* Form controls don't inherit font-family by default — force them to. */
+button,
+input,
+select,
+textarea {
+  font-family: inherit;
 }
 
 body {

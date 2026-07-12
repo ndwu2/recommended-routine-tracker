@@ -1,4 +1,7 @@
 <script>
+  import stopwatchIcon from './assets/stopwatch.svg';
+  import cooldownIcon from './assets/timer.svg';
+
   const ROUTINE_URL =
     'https://www.reddit.com/r/bodyweightfitness/wiki/kb/recommended_routine/';
 
@@ -563,7 +566,7 @@
         aria-pressed={timerMode === 'stopwatch'}
         onclick={() => setTimerMode('stopwatch')}
       >
-        Stopwatch
+        <img src={stopwatchIcon} alt="Stopwatch" />
       </button>
       <button
         class="mode"
@@ -571,7 +574,7 @@
         aria-pressed={timerMode === 'cooldown'}
         onclick={() => setTimerMode('cooldown')}
       >
-        Cooldown
+        <img src={cooldownIcon} alt="Cooldown timer" />
       </button>
     </div>
 
@@ -714,6 +717,18 @@
     color: #fff;
     background: #111;
     border-color: #111;
+  }
+
+  .timer .mode img {
+    display: block;
+    width: 24px;
+    height: 24px;
+    margin: 0 auto;
+  }
+
+  /* Icons are solid black; flip to white on the dark active button. */
+  .timer .mode.active img {
+    filter: invert(1);
   }
 
   .timer-face {

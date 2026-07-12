@@ -671,7 +671,7 @@
     </section>
   {/each}
 
-  <button class="reset" onclick={reset}>Reset All</button>
+  <button class="reset" onclick={reset}>Reset</button>
 </main>
 
 <style>
@@ -783,7 +783,7 @@
   }
 
   header a {
-    color: #4ea1ff;
+    color: var(--link);
     text-decoration: none;
     font-size: 0.95rem;
   }
@@ -795,7 +795,7 @@
   h2 {
     font-size: 1.05rem;
     margin: 0 0 0.6rem;
-    color: #b8b8b8;
+    color: var(--text);
     text-transform: uppercase;
     letter-spacing: 0.04em;
   }
@@ -825,9 +825,9 @@
     padding: 1rem;
     font-size: 1rem;
     font-weight: 600;
-    color: #f0f0f0;
-    background: #2c2c2c;
-    border: 2px solid #3d3d3d;
+    color: var(--btn-text);
+    background: var(--btn);
+    border: 2px solid var(--btn);
     border-radius: 12px;
     cursor: pointer;
     transition: background 0.15s, border-color 0.15s, transform 0.05s;
@@ -839,8 +839,8 @@
   }
 
   button.done {
-    background: #1f7a3d;
-    border-color: #2ea84f;
+    background: var(--done);
+    border-color: var(--done);
   }
 
   .track {
@@ -852,7 +852,7 @@
     width: auto;
     flex: 0 0 auto;
     padding: 0 0.9rem;
-    color: #b8b8b8;
+    color: var(--btn-text);
   }
 
   .caret {
@@ -866,8 +866,9 @@
 
   .workout {
     flex: 1 1 260px;
-    background: #242424;
-    border: 1px solid #3d3d3d;
+    background: var(--btn);
+    color: var(--btn-text);
+    border: 1px solid var(--table-border);
     border-radius: 10px;
     overflow: hidden;
   }
@@ -882,7 +883,7 @@
   .workout td {
     text-align: left;
     padding: 0.5rem 0.7rem;
-    border-bottom: 1px solid #333;
+    border-bottom: 1px solid var(--table-border);
   }
 
   .workout tr:last-child td {
@@ -894,8 +895,8 @@
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.04em;
-    color: #8f8f8f;
-    background: #2c2c2c;
+    color: var(--table-muted);
+    background: var(--table-header-bg);
   }
 
   .workout .reps-col {
@@ -904,13 +905,13 @@
   }
 
   .workout .reps {
-    color: #b8b8b8;
+    color: var(--table-muted);
     white-space: nowrap;
     font-variant-numeric: tabular-nums;
   }
 
   .workout a {
-    color: #4ea1ff;
+    color: var(--link);
     text-decoration: none;
   }
 
@@ -922,12 +923,12 @@
     margin-top: 0.5rem;
     font-size: 0.95rem;
     font-weight: 500;
-    color: #b8b8b8;
-    background: transparent;
-    border-color: #3d3d3d;
+    color: var(--btn-text);
+    background: var(--reset-btn);
+    border-color: var(--reset-btn);
   }
 
   button.reset:active {
-    background: #2c2c2c;
+    background: var(--reset-active);
   }
 </style>

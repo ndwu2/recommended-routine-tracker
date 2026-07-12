@@ -1,6 +1,24 @@
 :root {
   color-scheme: dark;
   font-family: system-ui, -apple-system, sans-serif;
+
+  /* Brand palette — edit these to re-skin the whole app */
+  --bg: #191919;
+  --text: #e7e7e7;
+
+  --btn: #f8f3a6;
+  --btn-text: #454545;
+
+  --done: #b1f8b2;
+
+  --reset-btn: #fdfdfd;
+  --reset-active: #b1f8b2;
+
+  --table-header-bg: #f2eaa0;
+  --table-border: #e6dd8f;
+  --table-muted: #6b6b6b;
+
+  --link: #4ea1ff;
 }
 
 * {
@@ -9,6 +27,6 @@
 
 body {
   margin: 0;
-  background: #1a1a1a;
-  color: #f0f0f0;
+  background: var(--bg);
+  color: var(--text);
 }

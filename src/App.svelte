@@ -688,8 +688,8 @@
     display: flex;
     align-items: stretch;
     gap: 0.6rem;
-    background: #ffffff;
-    color: #111111;
+    background: #fdfdfd;
+    color: #191919;
     border-radius: 12px;
     padding: 0.6rem;
     margin-bottom: 1.5rem;
@@ -707,16 +707,16 @@
     padding: 0.5rem 0.8rem;
     font-size: 0.85rem;
     font-weight: 600;
-    color: #111;
-    background: #f0f0f0;
+    color: #191919;
+    background: #fdfdfd;
     border: 2px solid #d4d4d4;
     border-radius: 8px;
   }
 
   .timer .mode.active {
-    color: #fff;
-    background: #111;
-    border-color: #111;
+    color: #fdfdfd;
+    background: #191919;
+    border-color: #191919;
   }
 
   .timer .mode img {
@@ -745,7 +745,7 @@
     font-weight: 700;
     font-variant-numeric: tabular-nums;
     letter-spacing: 0.02em;
-    color: #111;
+    color: #191919;
     line-height: 1;
   }
 
@@ -767,23 +767,23 @@
     padding: 0.45rem 0.9rem;
     font-size: 0.9rem;
     font-weight: 600;
-    color: #fff;
-    background: #111;
-    border: 2px solid #111;
+    color: #fdfdfd;
+    background: #191919;
+    border: 2px solid #191919;
     border-radius: 8px;
   }
 
   .timer .run.reset-timer {
-    color: #111;
-    background: #fff;
+    color: #191919;
+    background: #fdfdfd;
     border-color: #cfcfcf;
   }
 
   .timer .adjust {
     padding: 0.45rem 0.6rem;
     font-size: 0.8rem;
-    color: #111;
-    background: #f0f0f0;
+    color: #191919;
+    background: #fdfdfd;
     border-color: #d4d4d4;
   }
 

@@ -714,9 +714,9 @@
   }
 
   .timer .mode.active {
-    color: #fdfdfd;
-    background: #191919;
-    border-color: #191919;
+    color: var(--btn-text);
+    background: var(--btn);
+    border-color: var(--btn);
   }
 
   .timer .mode img {
@@ -726,7 +726,7 @@
     margin: 0 auto;
   }
 
-  /* Icons are solid black; flip to white on the dark active button. */
+  /* Icons are solid black; flip to white on the active (purple) button. */
   .timer .mode.active img {
     filter: invert(1);
   }
@@ -767,9 +767,9 @@
     padding: 0.45rem 0.9rem;
     font-size: 0.9rem;
     font-weight: 600;
-    color: #fdfdfd;
-    background: #191919;
-    border: 2px solid #191919;
+    color: var(--btn-text);
+    background: var(--btn);
+    border: 2px solid var(--btn);
     border-radius: 8px;
   }
 
@@ -881,8 +881,8 @@
 
   .workout {
     flex: 1 1 260px;
-    background: var(--btn);
-    color: var(--btn-text);
+    background: var(--table-bg);
+    color: var(--table-text);
     border: 1px solid var(--table-border);
     border-radius: 10px;
     overflow: hidden;
@@ -910,7 +910,7 @@
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.04em;
-    color: var(--table-muted);
+    color: var(--table-header-text);
     background: var(--table-header-bg);
   }
 
@@ -938,9 +938,9 @@
     margin-top: 0.5rem;
     font-size: 0.95rem;
     font-weight: 500;
-    color: var(--btn-text);
-    background: var(--reset-btn);
-    border-color: var(--reset-btn);
+    color: var(--text);
+    background: transparent;
+    border-color: var(--text);
   }
 
   button.reset:active {

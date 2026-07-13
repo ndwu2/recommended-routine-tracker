@@ -854,6 +854,7 @@
   }
 
   button.done {
+    color: #272727;
     background: var(--done);
     border-color: var(--done);
   }

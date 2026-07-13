@@ -9,9 +9,9 @@
   --btn: #9470ce;
   --btn-text: #e7e7e7;
 
-  --done: #b1f8b2;
+  --done: #79f47b;
 
-  --reset-active: #b1f8b2;
+  --reset-active: #79f47b;
 
   /* Workout table — accent pulled off the button color, neutral body for now */
   --table-bg: #e7e7e7;
@@ -21,7 +21,7 @@
   --table-border: #c3aee0;
   --table-muted: #6b6b6b;
 
-  --link: #4ea1ff;
+  --link: #B19CD8;
 }
 
 * {
